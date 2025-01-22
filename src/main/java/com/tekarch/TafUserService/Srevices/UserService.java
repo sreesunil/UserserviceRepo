@@ -1,14 +1,14 @@
 package com.tekarch.TafUserService.Srevices;
 
 
-import com.tekarch.TafUserService.DTO.UserDTO;
+import com.tekarch.TafUserService.Models.User;
 
 import java.util.List;
 
 public interface UserService {
 
-    UserDTO registerUser(UserDTO userDTO);
-    UserDTO getUserById(Long id);
-    List<UserDTO> getAllUsers();
-
+    User registerUser(User user);
+    User getUserById(Long id);
+    User updateUser(Long id, User user);
+    List<User> getAllUsers();
 }

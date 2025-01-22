@@ -1,6 +1,6 @@
-package com.tekarch.TafUserService.DTO;
+package com.tekarch.TafUserService.Models;
 
-public class UserDTO {
+public class User {
 
     private Long id;
     private String username;
@@ -8,9 +8,9 @@ public class UserDTO {
     private String phone;
 
     // Constructors
-    public UserDTO() {}
+    public User() {}
 
-    public UserDTO(Long id, String username, String email, String phone) {
+    public User(Long id, String username, String email, String phone) {
         this.id = id;
         this.username = username;
         this.email = email;

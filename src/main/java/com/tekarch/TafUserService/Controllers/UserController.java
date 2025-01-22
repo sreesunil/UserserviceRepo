@@ -1,7 +1,7 @@
 package com.tekarch.TafUserService.Controllers;
 
 
-import com.tekarch.TafUserService.DTO.UserDTO;
+import com.tekarch.TafUserService.Models.User;
 import com.tekarch.TafUserService.Srevices.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,21 +19,25 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<UserDTO> addUser(@RequestBody UserDTO user) {
+    public ResponseEntity<User> addUser(@RequestBody User user) {
         return new ResponseEntity<>(userService.registerUser(user), HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public ResponseEntity<List<UserDTO>> getAllUsers() {
-        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
-    }
-
-
-
     @GetMapping("/{id}")
-    public UserDTO getUserById(@PathVariable Long id) {
-        return userService.getUserById(id);
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        User user = userService.getUserById(id);
+        return ResponseEntity.ok(user);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
+        User updatedUser = userService.updateUser(id, user);
+        return ResponseEntity.ok(updatedUser);
+    }
 
+    @GetMapping
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = userService.getAllUsers();
+        return ResponseEntity.ok(users);
+    }
 }

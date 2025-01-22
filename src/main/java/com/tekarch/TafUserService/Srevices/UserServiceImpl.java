@@ -1,6 +1,6 @@
 package com.tekarch.TafUserService.Srevices;
 
-import com.tekarch.TafUserService.DTO.UserDTO;
+import com.tekarch.TafUserService.Models.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,21 +23,27 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public UserDTO registerUser(UserDTO userDTO) {
+    public User registerUser(User user) {
 
-        return restTemplate.postForObject(datastoreServiceUrl , userDTO , UserDTO.class);
+        return restTemplate.postForObject(datastoreServiceUrl , user , User.class);
     }
 
     @Override
-    public UserDTO getUserById(Long id) {
-
-        return restTemplate.getForObject(datastoreServiceUrl , UserDTO.class);
+    public User getUserById(Long id) {
+        return restTemplate.getForObject(datastoreServiceUrl + "/" + id, User.class);
     }
 
+
     @Override
-    public List<UserDTO> getAllUsers() {
-        UserDTO[] userArray=  restTemplate.getForObject(datastoreServiceUrl+ "/users" , UserDTO[].class);
-        return Arrays.asList(userArray);
+    public User updateUser(Long id, User user) {
+        restTemplate.put(datastoreServiceUrl + "/" + id, user);
+        return user;
+    }
+
+
+    @Override
+    public List<User> getAllUsers() {
+        return Arrays.asList(restTemplate.getForObject(datastoreServiceUrl, User[].class));
     }
 
 
